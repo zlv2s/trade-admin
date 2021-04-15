@@ -6,9 +6,7 @@
 
 <script>
 import { getUserInfo } from '@api/user'
-import { mapGetters, mapActions } from 'vuex'
-import config from '@config'
-import storage from '@utils/storage'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Home',
@@ -20,16 +18,7 @@ export default {
     const user = await getUserInfo(this.id)
     console.log(user)
   },
-  methods: {
-    ...mapActions('user', ['autoLogin']),
-    async checkLogin() {
-      const token = storage.get(config.TOKEN_KEY)
-      if (token) {
-        const res = await this.autoLogin()
-        console.log(res)
-      }
-    }
-  }
+  methods: {}
 }
 </script>
 

@@ -27,6 +27,14 @@
         </div>
       </div>
       <div class="form-item">
+        <input
+          type="checkbox"
+          :checked="isRemberMe"
+          class="rember-me"
+          id="rember-me"
+        /><span class="tips">是否七天免登陆？</span>
+      </div>
+      <div class="form-item">
         <!-- button 标签默认点击会触发表单提交事件 -->
         <van-button @click.prevent="login" type="primary" block
           >登录</van-button
@@ -47,6 +55,7 @@ export default {
         phone: '13397978989',
         verifyCode: '2213'
       },
+      isRemberMe: false,
       btnInfo: '获取验证码'
     }
   },
@@ -91,13 +100,14 @@ export default {
 
     .form-item {
       display: flex;
+      align-items: center;
       margin-bottom: rem(30);
-      border-bottom: 1px solid#eee;
+
       font-size: rem(14);
       padding-bottom: rem(10);
 
-      &:last-of-type {
-        border-bottom: none;
+      &:nth-of-type(-n + 2) {
+        border-bottom: 1px solid#eee;
       }
 
       label {
@@ -112,6 +122,26 @@ export default {
         &::-webkit-input-placeholder {
           color: #ccc;
         }
+      }
+
+      .rember-me {
+        width: 1.3em;
+        height: 1.3em;
+        background-color: white;
+        border-radius: 50%;
+        vertical-align: middle;
+        border: 1px solid #ddd;
+        -webkit-appearance: none;
+        outline: none;
+        cursor: pointer;
+
+        &:checked {
+          background-color: $base-font-color;
+        }
+      }
+
+      .tips {
+        text-indent: rem(14);
       }
 
       .input-box {

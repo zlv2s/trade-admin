@@ -1,4 +1,4 @@
-import { userLogin } from '@api/user'
+import { userLogin, autoLogin } from '@api/user'
 import storage from '@utils/storage'
 import config from '@config'
 
@@ -32,6 +32,18 @@ export default {
             commit('SET_ID', res.id)
             storage.set(config.TOKEN_KEY, res.token)
             resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+
+    autoLogin({ commit }) {
+      return new Promise((resolve, reject) => {
+        autoLogin()
+          .then(res => {
+            console.log(res)
           })
           .catch(err => {
             reject(err)
