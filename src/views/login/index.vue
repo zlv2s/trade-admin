@@ -54,7 +54,6 @@ export default {
     ...mapActions('user', ['doLogin']),
     // 登录
     login() {
-      // debugger
       this.doLogin({
         phone: this.userInfo.phone,
         vdtCode: this.userInfo.verifyCode

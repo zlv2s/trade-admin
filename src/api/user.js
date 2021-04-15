@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 /**
  * 获取单个用户信息
- * @param {*} id
+ * @param {String} id
  * @returns {Promise}
  */
 export function getUserInfo(id) {

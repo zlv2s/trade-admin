@@ -1,6 +1,7 @@
 import axios from 'axios'
 import config from '@/config'
 import { Toast } from 'vant'
+import store from '../store'
 
 const service = axios.create({
   baseURL:
@@ -12,6 +13,12 @@ const service = axios.create({
 
 service.interceptors.request.use(
   config => {
+    const token = store.getters['user/token']
+    const filterURLs = ['/user/login', '/user/validate/code', '/user/app/login']
+    if (!filterURLs.includes(config.url)) {
+      config.headers.token = token
+    }
+
     return config
   },
   err => {
