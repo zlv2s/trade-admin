@@ -1,25 +1,101 @@
 <template>
-  <div>
-    welocme
+  <div class="main">
+    <van-swipe class="swipe-box">
+      <van-swipe-item>
+        <line-chart
+          v-if="Object.keys(chartData).length"
+          :chartData="chartData"
+        />
+      </van-swipe-item>
+      <van-swipe-item>2</van-swipe-item>
+    </van-swipe>
+    <div class="menu-items">
+      <items />
+    </div>
   </div>
 </template>
 
 <script>
-import { getUserInfo } from '@api/user'
-import { mapGetters } from 'vuex'
+import { getPaymentStats, getCollectStats } from '@api/stats'
+import LineChart from './LineChart'
+import Items from './Items'
 
 export default {
   name: 'Home',
-  computed: {
-    ...mapGetters('user', ['id'])
+  data() {
+    return {
+      chartData: {}
+    }
+  },
+
+  methods: {
+    transfomData(list) {
+      const [payments, collection] = list
+      const paymentsObj = payments.reduce(
+        (acc, x) => {
+          acc.date.push(x.date.substr(5))
+          acc.paid.push(x.paid)
+          acc.payable.push(x.payable)
+          return acc
+        },
+        { date: [], paid: [], payable: [] }
+      )
+
+      const collectObj = collection.reduce(
+        (acc, x) => {
+          acc.received.push(x.received)
+          acc.receiving.push(x.receiving)
+          return acc
+        },
+        {
+          received: [],
+          receiving: []
+        }
+      )
+      const dataObj = { ...paymentsObj, ...collectObj }
+
+      const map = {
+        paid: '已付',
+        payable: '应付',
+        received: '已收',
+        receiving: '应收'
+      }
+
+      return {
+        legendData: Object.keys(dataObj)
+          .filter(x => x !== 'date')
+          .map(x => map[x]),
+        xAxisData: dataObj.date,
+        seriesData: Object.entries(dataObj)
+          .filter(([k, v]) => k !== 'date')
+          .map(([k, v]) => ({
+            name: map[k],
+            type: 'line',
+            stack: '总量',
+            data: v
+          }))
+      }
+    }
   },
 
   async created() {
-    const user = await getUserInfo(this.id)
-    console.log(user)
+    this.chartData = this.transfomData(
+      await Promise.all([getPaymentStats(), getCollectStats()])
+    )
   },
-  methods: {}
+
+  components: { LineChart, Items }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.main {
+  .swipe-box {
+    padding-top: rem(25);
+  }
+
+  .menu-items {
+    padding: rem(20);
+  }
+}
+</style>

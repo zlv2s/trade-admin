@@ -1,4 +1,4 @@
-@import 'https://at.alicdn.com/t/font_2488333_n7uukujgcgs.css';
+@import 'https://at.alicdn.com/t/font_2488333_c5i4rkjavlr.css';
 
 html,
 body {
@@ -6,6 +6,17 @@ body {
   height: 100%;
   font-size: $html-font-size;
   color: $base-font-color;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
 }
 
 a {
@@ -28,4 +39,8 @@ input {
 /*IE6和IE7*/
 .clearfix {
   *zoom: 1;
+}
+
+.disabled {
+  opacity: .3;
 }

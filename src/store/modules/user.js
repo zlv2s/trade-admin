@@ -9,8 +9,7 @@ export default {
   },
 
   getters: {
-    token: state => state.token,
-    id: state => state.id
+    token: state => state.token
   },
 
   mutations: {

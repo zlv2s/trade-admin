@@ -23,7 +23,13 @@
             placeholder="请输入验证码"
           />
           <span class="sep">|</span>
-          <input type="button" @click="fetchVerifyCode" :value="btnInfo" />
+          <input
+            :class="{ disabled: isDisabled }"
+            type="button"
+            @click="fetchVerifyCode"
+            :value="btnInfo"
+            :disabled="isDisabled"
+          />
         </div>
       </div>
       <div class="form-item">
@@ -36,7 +42,12 @@
       </div>
       <div class="form-item">
         <!-- button 标签默认点击会触发表单提交事件 -->
-        <van-button @click.prevent="login" type="primary" block
+        <van-button
+          :loading="loginBtn.isLoading"
+          :loading-text="loginBtn.loadingText"
+          @click.prevent="login"
+          type="primary"
+          block
           >登录</van-button
         >
       </div>
@@ -57,8 +68,13 @@ export default {
         phone: '13397978989',
         verifyCode: '2213'
       },
-      isRemberMe: true,
-      btnInfo: '获取验证码'
+      isRemberMe: false,
+      btnInfo: '获取验证码',
+      loginBtn: {
+        isLoading: false,
+        loadingText: '登录中'
+      },
+      isDisabled: false
     }
   },
   async created() {
@@ -81,27 +97,48 @@ export default {
     // 登录
     async login() {
       console.log('login')
-
+      this.loginBtn.isLoading = true
       try {
         const res = await this.doLogin({
           phone: this.userInfo.phone,
           vdtCode: this.userInfo.verifyCode
         })
-        // 点击勾选免登陆，保存 token 到 localStorage
-        if (this.isRemberMe) {
-          storage.local.set(config.TOKEN_KEY, res.token)
-        }
+
+        this.loginBtn.isLoading = false
+        // 根据是否勾选免登陆，保存/移除 token
+        this.isRemberMe
+          ? storage.local.set(config.TOKEN_KEY, res.token)
+          : storage.local.remove(config.TOKEN_KEY)
 
         await this.getUserInfo(res.id)
 
         this.$router.push('/home')
-      } catch (error) {}
+      } catch (error) {
+        this.loginBtn.isLoading = false
+      }
     },
 
     // 验证码获取
     fetchVerifyCode() {
+      const vm = this
+      this.isDisabled = true
       getVerifyCode(this.userInfo.phone).then(res => {
         this.userInfo.verifyCode = res.vdtCode
+        const timeStart = Date.now()
+        loop()
+
+        function loop() {
+          const diff = Math.floor((Date.now() - timeStart) / 1000)
+          if (diff <= 60) {
+            vm.btnInfo = `${60 - diff}s`
+            setTimeout(() => {
+              loop()
+            }, 1000)
+          } else {
+            vm.btnInfo = '获取验证码'
+            vm.isDisabled = false
+          }
+        }
       })
     }
   }
@@ -111,7 +148,7 @@ export default {
 <style lang="scss" scoped>
 .login {
   text-align: center;
-  margin-top: rem(80);
+  padding-top: rem(80);
   .title {
     font-size: rem(24);
     color: #7e9cff;
