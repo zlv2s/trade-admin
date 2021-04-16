@@ -29,7 +29,7 @@
       <div class="form-item">
         <input
           type="checkbox"
-          :checked="isRemberMe"
+          v-model="isRemberMe"
           class="rember-me"
           id="rember-me"
         /><span class="tips">是否七天免登陆？</span>
@@ -47,6 +47,8 @@
 <script>
 import { getVerifyCode } from '@api/auth'
 import { mapActions } from 'vuex'
+import storage from '@utils/storage'
+import config from '@config'
 
 export default {
   data() {
@@ -55,21 +57,45 @@ export default {
         phone: '13397978989',
         verifyCode: '2213'
       },
-      isRemberMe: false,
+      isRemberMe: true,
       btnInfo: '获取验证码'
     }
   },
-  methods: {
-    ...mapActions('user', ['doLogin']),
-    // 登录
-    login() {
-      this.doLogin({
-        phone: this.userInfo.phone,
-        vdtCode: this.userInfo.verifyCode
-      }).then(res => {
-        console.log(res)
+  async created() {
+    // 判断缓存中是否有免登陆 token
+    const cacheToken = storage.local.get(config.TOKEN_KEY)
+    if (cacheToken) {
+      console.log('auto login')
+      this.$store.commit('user/SET_TOKEN', cacheToken)
+      try {
+        // 自动登录
+        await this.autoLogin()
         this.$router.push('/home')
-      })
+      } catch (error) {
+        storage.local.remove(config.TOKEN_KEY)
+      }
+    }
+  },
+  methods: {
+    ...mapActions('user', ['doLogin', 'autoLogin', 'getUserInfo']),
+    // 登录
+    async login() {
+      console.log('login')
+
+      try {
+        const res = await this.doLogin({
+          phone: this.userInfo.phone,
+          vdtCode: this.userInfo.verifyCode
+        })
+        // 点击勾选免登陆，保存 token 到 localStorage
+        if (this.isRemberMe) {
+          storage.local.set(config.TOKEN_KEY, res.token)
+        }
+
+        await this.getUserInfo(res.id)
+
+        this.$router.push('/home')
+      } catch (error) {}
     },
 
     // 验证码获取

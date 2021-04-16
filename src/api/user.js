@@ -26,13 +26,11 @@ export function userLogin({ phone, vdtCode }) {
 
 /**
  * 自动登录
- * @param {String} token
  * @returns {Promise}
  */
-export function autoLogin(token) {
+export function autoLogin() {
   return request({
     url: '/user/auto/login',
-    method: 'POST',
-    data: { token }
+    method: 'POST'
   })
 }

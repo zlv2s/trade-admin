@@ -1,12 +1,11 @@
-import { userLogin, autoLogin } from '@api/user'
+import { userLogin, autoLogin, getUserInfo } from '@api/user'
 import storage from '@utils/storage'
-import config from '@config'
 
 export default {
   namespaced: true,
   state: {
-    token: null,
-    id: ''
+    token: storage.session.get('token'),
+    user: storage.session.get('user')
   },
 
   getters: {
@@ -18,19 +17,20 @@ export default {
     SET_TOKEN(state, token) {
       state.token = token
     },
-    SET_ID(state, id) {
-      state.id = id
+
+    SET_USER(state, user) {
+      state.user = user
     }
   },
 
   actions: {
+    // 登录
     doLogin({ commit }, { phone, vdtCode }) {
       return new Promise((resolve, reject) => {
         userLogin({ phone, vdtCode })
           .then(res => {
             commit('SET_TOKEN', res.token)
-            commit('SET_ID', res.id)
-            storage.set(config.TOKEN_KEY, res.token)
+            storage.session.set('token', res.token)
             resolve(res)
           })
           .catch(err => {
@@ -39,11 +39,29 @@ export default {
       })
     },
 
+    // 获取用户信息
+    getUserInfo({ commit }, id) {
+      return new Promise((resolve, reject) => {
+        getUserInfo(id)
+          .then(res => {
+            commit('SET_USER', res)
+            storage.session.set('user', res)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+
+    // 自动登录，并获取用户信息
     autoLogin({ commit }) {
       return new Promise((resolve, reject) => {
         autoLogin()
           .then(res => {
-            console.log(res)
+            commit('SET_USER', res)
+            storage.session.set('user', res)
+            resolve()
           })
           .catch(err => {
             reject(err)
