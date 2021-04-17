@@ -111,8 +111,10 @@ export default {
           : storage.local.remove(config.TOKEN_KEY)
 
         await this.getUserInfo(res.id)
-
-        this.$router.push('/home')
+        this.$toast('登录成功')
+        setTimeout(() => {
+          this.$router.push('/home')
+        }, 800)
       } catch (error) {
         this.loginBtn.isLoading = false
       }

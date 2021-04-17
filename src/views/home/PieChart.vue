@@ -38,12 +38,13 @@ export default {
           {
             name: '半径模式',
             type: 'pie',
-            radius: [20, 70],
+            radius: [10, 50],
             center: ['25%', '50%'],
             roseType: 'radius',
             label: {
               show: false
             },
+
             emphasis: {
               label: {
                 show: true
@@ -60,9 +61,14 @@ export default {
           {
             name: '面积模式',
             type: 'pie',
-            radius: [20, 70],
+            radius: [10, 50],
             center: ['75%', '50%'],
-            roseType: 'area',
+            roseType: 'radius',
+            labelLine: {
+              smooth: 0.2,
+              length: 3,
+              length2: 5
+            },
             data: [
               { value: 10, name: 'rose1' },
               { value: 5, name: 'rose2' },

@@ -2,6 +2,7 @@ import axios from 'axios'
 import config from '@/config'
 import { Toast } from 'vant'
 import store from '../store'
+import router from '../router'
 
 const service = axios.create({
   baseURL:
@@ -30,6 +31,8 @@ service.interceptors.response.use(
     const res = response.data
     if (res.code === 200) {
       return res.data
+    } else if (res.code === 403) {
+      router.push({ path: '/login' })
     } else {
       Toast(res.message)
       return Promise.reject(new Error(res.message || 'Error'))
