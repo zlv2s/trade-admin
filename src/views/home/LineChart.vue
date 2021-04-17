@@ -1,5 +1,5 @@
 <template>
-  <div class="line-chart" ref="lineChart"></div>
+  <div class="chart-item" ref="lineChart"></div>
 </template>
 
 <script>
@@ -78,9 +78,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.line-chart {
-  width: 100%;
-  height: rem(300);
-}
-</style>
+<style lang="scss" scoped></style>

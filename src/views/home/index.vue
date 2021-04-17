@@ -1,13 +1,15 @@
 <template>
   <div class="main">
-    <van-swipe class="swipe-box">
+    <van-swipe class="swipe-box" :show-indicators="false">
       <van-swipe-item>
         <line-chart
           v-if="Object.keys(chartData).length"
           :chartData="chartData"
         />
       </van-swipe-item>
-      <van-swipe-item>2</van-swipe-item>
+      <van-swipe-item>
+        <pie-chart />
+      </van-swipe-item>
     </van-swipe>
     <div class="menu-items">
       <items />
@@ -18,6 +20,7 @@
 <script>
 import { getPaymentStats, getCollectStats } from '@api/stats'
 import LineChart from './LineChart'
+import PieChart from './PieChart'
 import Items from './Items'
 
 export default {
@@ -84,7 +87,7 @@ export default {
     )
   },
 
-  components: { LineChart, Items }
+  components: { LineChart, PieChart, Items }
 }
 </script>
 
@@ -92,6 +95,10 @@ export default {
 .main {
   .swipe-box {
     padding-top: rem(25);
+    .chart-item {
+      width: 100%;
+      height: rem(300);
+    }
   }
 
   .menu-items {

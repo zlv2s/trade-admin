@@ -59,7 +59,7 @@ export default {
       flex-direction: column;
       align-items: center;
       font-size: rem(12);
-      // margin-right: rem(10);
+
       i {
         font-size: rem(28);
         margin-bottom: rem(10);
