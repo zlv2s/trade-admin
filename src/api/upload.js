@@ -5,10 +5,11 @@ import request from '@utils/request'
  * @param {FormData} filename
  * @returns {Promise}
  */
-export function uploadFile(formData) {
+export function uploadFile(formData, onUploadProgress) {
   return request({
     url: '/file/upload/mobile',
     method: 'post',
-    data: formData
+    data: formData,
+    onUploadProgress
   })
 }

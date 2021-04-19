@@ -2,13 +2,15 @@
   <div class="setting">
     <div class="avatar-box">
       <div class="avatar-wrapper">
-        <van-image
-          round
-          width="1rem"
-          height="1rem"
-          src="https://img01.yzcdn.cn/vant/cat.jpeg"
-        />
+        <van-image round width="1rem" height="1rem" :src="avatarURL" />
         <i @click="uploadImage" class="iconfont icon-edit1"></i>
+        <van-circle
+          v-if="isLoading"
+          class="circle-box"
+          color="#f40"
+          v-model="loadindPercent"
+          :rate="100"
+        />
       </div>
     </div>
     <div class="func-box">
@@ -24,7 +26,7 @@
       </ul>
     </div>
     <div class="btn-box">
-      <van-button @click="logout" block color="#416fff">退出系统</van-button>
+      <van-button @click="logout" block color="#1989fa">退出系统</van-button>
     </div>
     <PasswordChange :isShowModal.sync="isShowModal" />
   </div>
@@ -38,7 +40,17 @@ import PasswordChange from './PasswordChange'
 export default {
   data() {
     return {
-      isShowModal: false
+      isShowModal: false,
+      isLoading: false,
+      loadindPercent: 0,
+      imgPath: ''
+    }
+  },
+  computed: {
+    avatarURL() {
+      return this.imgPath
+        ? `http://127.0.0.1:8080/api${this.imgPath}`
+        : 'https://img01.yzcdn.cn/vant/cat.jpeg'
     }
   },
   methods: {
@@ -58,16 +70,23 @@ export default {
       this.isShowModal = true
     },
 
+    onUploadProgress(e) {
+      this.loadingPercent = Math.ceil((e.loaded / e.total) * 100)
+    },
+
     uploadImage() {
+      const vm = this
       const input = document.createElement('input')
       input.setAttribute('type', 'file')
       input.onchange = function() {
         const fd = new FormData()
         const file = this.files[0]
         fd.append('fileName', file)
-
-        uploadFile(fd).then(res => {
-          console.log(res)
+        vm.isLoading = true
+        uploadFile(fd, vm.onUploadProgress).then(res => {
+          console.log(111, res)
+          vm.imgPath = res[0].path
+          vm.isLoading = false
         })
       }
       input.click()
@@ -94,6 +113,11 @@ export default {
         top: rem(2);
         left: rem(100);
         font-size: rem(18);
+      }
+
+      .circle-box {
+        position: absolute;
+        left: 0;
       }
     }
   }
