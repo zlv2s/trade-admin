@@ -36,7 +36,7 @@
           native-type="submit"
           >提交</van-button
         >
-        <van-button size="small" @click="onCancel">取消</van-button>
+        <van-button size="small" @click.prevent="onCancel">取消</van-button>
       </div>
     </van-form>
   </van-popup>
