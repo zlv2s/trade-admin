@@ -5,8 +5,17 @@ import user from './modules/user'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
+  state: {
+    dataObj: null
+  },
+  getters: {
+    dataObj: state => state.dataObj
+  },
+  mutations: {
+    SET_DATA_OBJ(state, dataObj) {
+      state.dataObj = dataObj
+    }
+  },
   actions: {},
   modules: {
     user

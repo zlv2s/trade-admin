@@ -9,7 +9,8 @@ import {
   Form,
   Field,
   Image as VanImage,
-  Popup
+  Popup,
+  Picker
 } from 'vant'
 
 import './styles/common.scss'
@@ -20,6 +21,7 @@ Vue.use(Button)
   .use(Field)
   .use(VanImage)
   .use(Popup)
+  .use(Picker)
 
 Vue.config.productionTip = false
 

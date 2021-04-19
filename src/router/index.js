@@ -31,6 +31,7 @@ const routes = [
             /* webpackChunkName: "new-material" */ '../views/material/NewMaterial'
           ),
         name: 'new material',
+        props: true,
         meta: { title: '新建材料' }
       },
       {

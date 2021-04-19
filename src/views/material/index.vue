@@ -10,7 +10,10 @@
           {{ material.name | format
           }}<span class="remark">{{ material.remark }}</span>
         </p>
-        <i class="iconfont icon-bianji1"></i>
+        <i
+          class="iconfont icon-bianji1"
+          @click="handleEditAction(material)"
+        ></i>
       </li>
     </ul>
   </div>
@@ -24,10 +27,15 @@ export default {
       materialList: []
     }
   },
+
   methods: {
     async getMaterial() {
       const res = await getMaterialList()
       this.materialList = res.rows
+    },
+    handleEditAction(material) {
+      this.$store.commit('SET_DATA_OBJ', material)
+      this.$router.push({ path: '/new-material' })
     }
   },
 
@@ -50,7 +58,7 @@ export default {
   .material-item {
     display: flex;
     align-items: center;
-    line-height: rem(20);
+    line-height: rem(18);
     font-size: rem(18);
     padding: 0 rem(15);
     background: #fff;
@@ -59,10 +67,11 @@ export default {
     p {
       flex: 1;
       color: $title-color;
+      font-size: rem(14);
     }
 
     .remark {
-      font-size: rem(14);
+      font-size: rem(12);
       color: $light-grey;
     }
 
