@@ -2,12 +2,24 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import { Button, Swipe, SwipeItem } from 'vant'
+import {
+  Button,
+  Swipe,
+  SwipeItem,
+  Form,
+  Field,
+  Image as VanImage,
+  Popup
+} from 'vant'
 
 import './styles/common.scss'
 Vue.use(Button)
   .use(Swipe)
   .use(SwipeItem)
+  .use(Form)
+  .use(Field)
+  .use(VanImage)
+  .use(Popup)
 
 Vue.config.productionTip = false
 

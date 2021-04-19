@@ -19,6 +19,11 @@ export default {
 
     SET_USER(state, user) {
       state.user = user
+    },
+
+    CLEAR_ALL(state) {
+      state.token = ''
+      state.user = null
     }
   },
 

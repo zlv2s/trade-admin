@@ -3,7 +3,12 @@
     <li class="item-o" v-for="menu in menuList" :key="menu.name">
       <h2 class="title">{{ menu.name }}</h2>
       <ul class="item-i-wrapper">
-        <li class="item-i" v-for="child in menu.children" :key="child.title">
+        <li
+          class="item-i"
+          v-for="child in menu.children"
+          :key="child.title"
+          @click="$router.push({ path: child.path })"
+        >
           <i class="iconfont" :class="child.icon"></i
           ><span>{{ child.title }}</span>
         </li>

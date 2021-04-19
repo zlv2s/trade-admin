@@ -16,14 +16,33 @@ const routes = [
         component: () => import(/* webpackChunkName: "home" */ '../views/home'),
         name: 'Home',
         meta: { title: '管理系统' }
+      },
+      {
+        path: 'material',
+        component: () =>
+          import(/* webpackChunkName: "material" */ '../views/material'),
+        name: 'material',
+        meta: { title: '材料管理' }
+      },
+      {
+        path: 'new-material',
+        component: () =>
+          import(
+            /* webpackChunkName: "new-material" */ '../views/material/NewMaterial'
+          ),
+        name: 'new material',
+        meta: { title: '新建材料' }
+      },
+      {
+        path: 'setting',
+        component: () =>
+          import(/* webpackChunkName: "setting" */ '../views/setting'),
+        name: 'setting',
+        meta: { title: '系统设置' }
       }
     ]
   },
-  // {
-  //   path: '/home',
-  //   name: 'Home',
-  //   component: Home
-  // },
+
   {
     path: '/login',
     name: 'Login',

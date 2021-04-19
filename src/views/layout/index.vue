@@ -1,6 +1,13 @@
 <template>
-  <div>
-    <h2 class="title">{{ $route.meta.title }}</h2>
+  <div class="layout-container">
+    <h2 class="title">
+      <i
+        v-show="isShowHomeBtn"
+        class="iconfont icon-shouye1"
+        @click="$router.replace({ path: '/' })"
+      ></i
+      >{{ $route.meta.title }}
+    </h2>
     <div class="content">
       <router-view></router-view>
     </div>
@@ -9,6 +16,11 @@
 
 <script>
 export default {
+  computed: {
+    isShowHomeBtn() {
+      return !['/', '/home'].includes(this.$route.path)
+    }
+  },
   created() {
     // console.log(this.$route)
   }
@@ -16,6 +28,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.layout-container {
+  height: 100%;
+}
+
 .title {
   position: fixed;
   z-index: 99;
@@ -25,6 +41,11 @@ export default {
   text-align: center;
   background: $title-color;
   color: $color-w;
+  .iconfont {
+    position: absolute;
+    left: rem(10);
+    font-size: rem(20);
+  }
 }
 
 .content {
