@@ -17,10 +17,7 @@
         :rules="[{ required: true, message: '请填写材料类型' }]"
       >
         <template #button>
-          <van-button
-            size="small"
-            type="primary"
-            @click="() => (isShowTypeModal = true)"
+          <van-button size="small" type="primary" @click.prevent="showTypeModal"
             >选择类型</van-button
           >
         </template>
@@ -48,11 +45,12 @@
 </template>
 
 <script>
-import { getMaterialList, updateMaterial } from '@api/material'
+import { getMaterialList, updateMaterial, saveMaterial } from '@api/material'
 export default {
-  name: 'new-material',
+  name: 'material-form',
   data() {
     return {
+      status: 1, // 0 编辑， 1 新建
       isShowTypeModal: false,
       materialList: [],
       material: {
@@ -70,20 +68,37 @@ export default {
     }
   },
   methods: {
+    showTypeModal(e) {
+      this.isShowTypeModal = true
+    },
     onSubmit(values) {
       console.log('submit', values)
-      updateMaterial({
-        id: this.material.id,
-        parentId: this.material.parentId,
-        name: this.material.name,
-        remark: this.material.remark
-      }).then(res => {
-        console.log(res)
-        this.$toast('更新成功！')
-        setTimeout(() => {
-          this.$router.go(-1)
-        }, 800)
-      })
+      if (this.status === 1) {
+        saveMaterial({
+          parentId: this.material.parentId,
+          name: this.material.name,
+          remark: this.material.remark
+        }).then(res => {
+          console.log(res)
+          this.$toast('保存成功！')
+          setTimeout(() => {
+            this.$router.replace({ path: '/material' })
+          }, 800)
+        })
+      } else {
+        updateMaterial({
+          id: this.material.id,
+          parentId: this.material.parentId,
+          name: this.material.name,
+          remark: this.material.remark
+        }).then(res => {
+          console.log(res)
+          this.$toast('更新成功！')
+          setTimeout(() => {
+            this.$router.go(-1)
+          }, 800)
+        })
+      }
     },
 
     onConfirm(val) {
@@ -99,6 +114,7 @@ export default {
   async created() {
     const dataObj = this.$store.getters.dataObj
     if (dataObj) {
+      this.status = 0
       this.material = dataObj
       this.$store.commit('SET_DATA_OBJ', null)
     }

@@ -17,7 +17,7 @@ export default {
         {
           title: '新建材料',
           icon: 'icon-cailiao',
-          path: '/new-material'
+          path: '/material/new-material'
         },
         {
           title: '供应商管理',

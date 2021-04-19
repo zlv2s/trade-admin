@@ -22,6 +22,7 @@
 <script>
 import { getMaterialList } from '@api/material'
 export default {
+  name: 'material-lsit',
   data() {
     return {
       materialList: []
@@ -35,7 +36,7 @@ export default {
     },
     handleEditAction(material) {
       this.$store.commit('SET_DATA_OBJ', material)
-      this.$router.push({ path: '/new-material' })
+      this.$router.push({ path: '/material/update-material' })
     }
   },
 

@@ -12,33 +12,41 @@ const routes = [
     redirect: '/home',
     children: [
       {
+        name: 'home',
         path: 'home',
         component: () => import(/* webpackChunkName: "home" */ '../views/home'),
-        name: 'Home',
         meta: { title: '管理系统' }
       },
       {
+        name: 'material',
         path: 'material',
         component: () =>
           import(/* webpackChunkName: "material" */ '../views/material'),
-        name: 'material',
         meta: { title: '材料管理' }
       },
       {
-        path: 'new-material',
+        name: 'new-material',
+        path: 'material/new-material',
         component: () =>
           import(
-            /* webpackChunkName: "new-material" */ '../views/material/NewMaterial'
+            /* webpackChunkName: "new-material" */ '../views/material/MaterialForm'
           ),
-        name: 'new material',
-        props: true,
         meta: { title: '新建材料' }
       },
       {
+        name: 'update-material',
+        path: 'material/update-material',
+        component: () =>
+          import(
+            /* webpackChunkName: "new-material" */ '../views/material/MaterialForm'
+          ),
+        meta: { title: '更新材料' }
+      },
+      {
+        name: 'setting',
         path: 'setting',
         component: () =>
           import(/* webpackChunkName: "setting" */ '../views/setting'),
-        name: 'setting',
         meta: { title: '系统设置' }
       }
     ]

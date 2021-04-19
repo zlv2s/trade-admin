@@ -2,11 +2,15 @@
   <div class="layout-container">
     <h2 class="title">
       <i
-        v-show="isShowHomeBtn"
+        v-show="!isShowBackBtn && !isHomeOrRootPath"
         class="iconfont icon-shouye1"
         @click="$router.replace({ path: '/' })"
       ></i
-      ><i v-show="isShowBackBtn" class="iconfont icon-fanhui back"></i
+      ><i
+        v-show="isShowBackBtn"
+        class="iconfont icon-fanhui back"
+        @click="$router.go(-1)"
+      ></i
       >{{ $route.meta.title }}
     </h2>
     <div class="content">
@@ -17,17 +21,16 @@
 
 <script>
 export default {
+  name: 'layout',
   computed: {
-    isShowHomeBtn() {
-      return !['/', '/home'].includes(this.$route.path)
+    isHomeOrRootPath() {
+      return ['/', '/home'].includes(this.$route.path)
     },
     isShowBackBtn() {
-      return false
+      return this.$route.path.split('/').length > 2
     }
   },
-  created() {
-    // console.log(this.$route)
-  }
+  created() {}
 }
 </script>
 
@@ -50,7 +53,6 @@ export default {
     left: rem(10);
     font-size: rem(20);
     &.back {
-      left: rem(60);
       font-size: rem(14);
     }
   }
