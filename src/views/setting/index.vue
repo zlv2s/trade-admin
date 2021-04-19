@@ -26,13 +26,14 @@
     <div class="btn-box">
       <van-button @click="logout" block color="#416fff">退出系统</van-button>
     </div>
-    <van-popup v-model="isShowModal">内容</van-popup>
+    <PasswordChange :isShowModal.sync="isShowModal" />
   </div>
 </template>
 
 <script>
 import storage from '@utils/storage'
 import { uploadFile } from '@api/upload'
+import PasswordChange from './PasswordChange'
 
 export default {
   data() {
@@ -71,6 +72,9 @@ export default {
       }
       input.click()
     }
+  },
+  components: {
+    PasswordChange
   }
 }
 </script>
