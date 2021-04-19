@@ -34,3 +34,16 @@ export function autoLogin() {
     method: 'POST'
   })
 }
+
+/**
+ * 更新用户信息
+ * @param {Object} data 用户信息
+ * @returns {Promise}
+ */
+export function updateUser(data) {
+  return request({
+    url: '/user/update',
+    method: 'POST',
+    data
+  })
+}
