@@ -46,7 +46,7 @@ export default {
 
   filters: {
     format(v) {
-      return v.substr(0, 6) + '...'
+      return v ? v.substr(0, 6) + '...' : ''
     }
   }
 }
@@ -61,7 +61,7 @@ export default {
     align-items: center;
     line-height: rem(18);
     font-size: rem(18);
-    padding: 0 rem(15);
+    padding: rem(10) rem(15);
     background: #fff;
     margin-top: rem(15);
 

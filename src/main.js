@@ -12,7 +12,8 @@ import {
   Popup,
   Picker,
   Circle,
-  List
+  List,
+  Area
 } from 'vant'
 
 import './styles/common.scss'
@@ -26,6 +27,7 @@ Vue.use(Button)
   .use(Picker)
   .use(Circle)
   .use(List)
+  .use(Area)
 
 Vue.config.productionTip = false
 

@@ -10,7 +10,7 @@
       <div
         class="supplier-item"
         v-for="item in supplierList"
-        :key="item.name"
+        :key="item.id"
         @click="goEdit(item)"
       >
         <div class="info">

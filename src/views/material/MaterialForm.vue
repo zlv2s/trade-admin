@@ -1,6 +1,6 @@
 <template>
-  <div class="form-wrapper">
-    <p>基本信息</p>
+  <div class="form-wrapper p-10">
+    <p class="fz-14 m-y-10">基本信息</p>
     <van-form @submit="onSubmit">
       <van-field
         v-model="material.name"
@@ -125,11 +125,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.form-wrapper {
-  padding: rem(10);
-  p {
-    font-size: rem(14);
-  }
-}
-</style>
+<style lang="scss" scoped></style>

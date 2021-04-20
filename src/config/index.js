@@ -37,12 +37,12 @@ export default {
         {
           title: '项目列表',
           icon: 'icon-icon-test',
-          path: ''
+          path: '/project/list'
         },
         {
-          title: '新建材料',
+          title: '新建项目',
           icon: 'icon-xinjian',
-          path: ''
+          path: '/project/new'
         }
       ]
     },

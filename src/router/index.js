@@ -63,6 +63,17 @@ const routes = [
         }
       },
       {
+        name: 'supplier-new',
+        path: '/supplier/new',
+        component: () =>
+          import(
+            /* webpackChunkName: "supplier-edit" */ '../views/supplier/SupplierEdit'
+          ),
+        meta: {
+          title: '新增供应商'
+        }
+      },
+      {
         name: 'setting',
         path: 'setting',
         component: () =>
