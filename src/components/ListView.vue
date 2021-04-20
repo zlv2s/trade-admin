@@ -1,33 +1,63 @@
 <template>
   <van-list
     class="list-wrapper"
-    v-model="loading"
+    v-model="$_loading"
     :finished="finished"
     finished-text="没有更多了"
-    @load="onLoad"
+    :immediate-check="false"
+    :offset="20"
+    @load="emitLoad"
   >
     <div
       class="list-item"
       v-for="item in dataList"
       :key="item.id"
-      @click="goEdit(item)"
+      @click="$emit('edit', item)"
     >
-      <div class="info">
-        <p class="company-name mb-10">{{ item.name }}</p>
-        <p class="address mb-10">{{ item.address }}</p>
-        <p class="contact">
-          <span>联系人：{{ item.contact }}，手机{{ item.phone }}</span>
-        </p>
-      </div>
-      <i class="iconfont icon-fanhui1"></i>
+      <slot :dataItem="item"></slot>
     </div>
   </van-list>
 </template>
 
 <script>
 export default {
+  data() {
+    return {}
+  },
+  computed: {
+    $_loading: {
+      get() {
+        return this.loading
+      },
+
+      set(v) {
+        this.$emit('set-loading', v)
+      }
+    }
+  },
+
   props: {
-    dataList: []
+    dataList: {
+      type: Array,
+      default: () => []
+    },
+
+    finished: {
+      type: Boolean,
+      default: false
+    },
+
+    loading: {
+      type: Boolean,
+      default: false
+    }
+  },
+
+  methods: {
+    emitLoad() {
+      console.log('emit loading')
+      this.$emit('load')
+    }
   }
 }
 </script>
@@ -46,7 +76,7 @@ export default {
   border-bottom: 1px solid #ddd;
 
   .info {
-    .company-name {
+    .title {
       font-weight: bold;
     }
 

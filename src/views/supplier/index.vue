@@ -1,6 +1,25 @@
 <template>
-  <div class="supplier">
-    <van-list
+  <div class="list">
+    <list-view
+      :dataList="supplierList"
+      :finished="finished"
+      :loading="loading"
+      @edit="onEdit"
+      @load="onLoad"
+      @set-loading="onSetLoading"
+    >
+      <template v-slot="{ dataItem: item }">
+        <div class="info">
+          <p class="title mb-10">{{ item.name }}</p>
+          <p class="address mb-10">{{ item.address }}</p>
+          <p class="contact">
+            <span>联系人：{{ item.contact }}，手机{{ item.phone }}</span>
+          </p>
+        </div>
+        <i class="iconfont icon-fanhui1"></i>
+      </template>
+    </list-view>
+    <!-- <van-list
       class="supplier-list"
       v-model="loading"
       :finished="finished"
@@ -14,7 +33,7 @@
         @click="goEdit(item)"
       >
         <div class="info">
-          <p class="company-name mb-10">{{ item.name }}</p>
+          <p class="title mb-10">{{ item.name }}</p>
           <p class="address mb-10">{{ item.address }}</p>
           <p class="contact">
             <span>联系人：{{ item.contact }}，手机{{ item.phone }}</span>
@@ -22,11 +41,12 @@
         </div>
         <i class="iconfont icon-fanhui1"></i>
       </div>
-    </van-list>
+    </van-list> -->
   </div>
 </template>
 
 <script>
+import ListView from '@com/ListView'
 import { getSupplierList } from '@api/supplier'
 // import { getSupplierList } from '@/mock/api'
 export default {
@@ -40,11 +60,23 @@ export default {
       size: 10
     }
   },
-  methods: {
-    onLoad() {
-      getSupplierList({ page: this.page }).then(res => {
-        console.log(res)
 
+  components: { ListView },
+  methods: {
+    onEdit(item) {
+      console.log('edit', item)
+
+      this.$store.commit('SET_DATA_OBJ', item)
+      this.$router.push({ path: '/supplier/edit' })
+    },
+
+    onSetLoading(v) {
+      this.loading = v
+    },
+
+    getList(page) {
+      getSupplierList({ page }).then(res => {
+        console.log(res)
         this.supplierList = [...this.supplierList, ...res.rows]
         this.loading = false
         if (this.page * this.size >= res.total) {
@@ -53,24 +85,25 @@ export default {
         this.page++
       })
     },
-    goEdit(supplier) {
-      this.$store.commit('SET_DATA_OBJ', supplier)
-      this.$router.push({ path: '/supplier/edit' })
+
+    onLoad() {
+      console.log('receive loading')
+      this.getList(this.page)
     }
+  },
+  async created() {
+    this.loading = true
+    await this.getList(this.page)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.supplier {
+.list {
   font-size: rem(14);
   background: #fff;
 
-  .supplier-list {
-    padding: rem(20);
-  }
-
-  .supplier-item {
+  .list-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -79,7 +112,7 @@ export default {
     border-bottom: 1px solid #ddd;
 
     .info {
-      .company-name {
+      .title {
         font-weight: bold;
       }
 

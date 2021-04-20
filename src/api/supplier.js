@@ -5,7 +5,7 @@ import request from '@utils/request'
  * @param {*} param
  * @returns {Promise}
  */
-export function getSupplierList({ page, size }) {
+export function getSupplierList({ page, size = 10 }) {
   return request({
     url: '/supplier/list',
     params: { page, size }

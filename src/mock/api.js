@@ -27,7 +27,7 @@ export function getSupplierList({ page, size = 10 }) {
               'code|123456-999999': 1,
               contact: '@cname',
               county: '@county',
-              'id|+1': 0,
+              id: Mock.Random.increment(),
               phone: '@phone',
               province: '@province',
               remark: '@csentence',
