@@ -1,4 +1,4 @@
-@import 'https://at.alicdn.com/t/font_2488333_8m06er2uj88.css';
+@import 'https://at.alicdn.com/t/font_2488333_8hp8ss14z8.css';
 
 html,
 body {
@@ -13,7 +13,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+p {
   margin: 0;
   padding: 0;
   font-weight: normal;
@@ -43,4 +44,8 @@ input {
 
 .disabled {
   opacity: .3;
+}
+
+.mb-10 {
+  margin-bottom: rem(10);
 }

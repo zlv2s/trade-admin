@@ -22,12 +22,12 @@ export default {
         {
           title: '供应商管理',
           icon: 'icon-renzheng6',
-          path: ''
+          path: '/supplier/list'
         },
         {
           title: '新建供应商',
           icon: 'icon-renzheng6',
-          path: ''
+          path: '/supplier/new'
         }
       ]
     },

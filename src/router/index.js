@@ -43,6 +43,26 @@ const routes = [
         meta: { title: '更新材料' }
       },
       {
+        name: 'supplier',
+        path: '/supplier/list',
+        component: () =>
+          import(/* webpackChunkName: "supplier-list" */ '../views/supplier'),
+        meta: {
+          title: '供应商管理'
+        }
+      },
+      {
+        name: 'supplier-edit',
+        path: '/supplier/edit',
+        component: () =>
+          import(
+            /* webpackChunkName: "supplier-edit" */ '../views/supplier/SupplierEdit'
+          ),
+        meta: {
+          title: '供应商编辑'
+        }
+      },
+      {
         name: 'setting',
         path: 'setting',
         component: () =>

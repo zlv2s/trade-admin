@@ -11,7 +11,8 @@ import {
   Image as VanImage,
   Popup,
   Picker,
-  Circle
+  Circle,
+  List
 } from 'vant'
 
 import './styles/common.scss'
@@ -24,6 +25,7 @@ Vue.use(Button)
   .use(Popup)
   .use(Picker)
   .use(Circle)
+  .use(List)
 
 Vue.config.productionTip = false
 
