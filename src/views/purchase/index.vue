@@ -23,7 +23,9 @@
     </van-swipe-cell>
   </div> -->
   <div class="list">
+    <Search />
     <list-view
+      style="background: #fff"
       :dataList="purchaseList"
       :finished="finished"
       :loading="loading"
@@ -61,6 +63,8 @@
 <script>
 import { getPurchaseList } from '@api/purchase'
 import ListView from '@com/ListView'
+import Search from './componenets/Search'
+
 export default {
   data() {
     return {
@@ -101,7 +105,8 @@ export default {
     this.getList(this.page)
   },
   components: {
-    ListView
+    ListView,
+    Search
   }
 }
 </script>
