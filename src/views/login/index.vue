@@ -104,7 +104,6 @@ export default {
           vdtCode: this.userInfo.verifyCode
         })
 
-        this.loginBtn.isLoading = false
         // 根据是否勾选免登陆，保存/移除 token
         this.isRemberMe
           ? storage.local.set(config.TOKEN_KEY, res.token)
@@ -112,6 +111,7 @@ export default {
 
         await this.getUserInfo(res.id)
         this.$toast('登录成功')
+        this.loginBtn.isLoading = false
         setTimeout(() => {
           this.$router.push('/home')
         }, 800)
