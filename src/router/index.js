@@ -177,14 +177,15 @@ const routes = [
   },
 
   {
+    name: 'login',
     path: '/login',
-    name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '../views/login'),
     meta: {
       noNeedAuth: true
     }
   },
   {
+    name: '404',
     path: '/404',
     component: () => import(/* webpackChunkName: "404" */ '../views/404')
   }

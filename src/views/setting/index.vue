@@ -58,7 +58,8 @@ export default {
       this.$store.commit('user/CLEAR_ALL')
       storage.local.clear()
       storage.session.clear()
-      this.$router.replace({ path: '/login ' })
+      debugger
+      this.$router.replace({ path: '/login' })
     },
 
     clearCache() {
