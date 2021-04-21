@@ -104,7 +104,6 @@ const routes = [
           title: '新增项目'
         }
       },
-
       {
         name: 'purchase-list',
         path: 'purchase/list',
@@ -136,7 +135,26 @@ const routes = [
           title: '新增采购'
         }
       },
-
+      {
+        name: 'receiving-list',
+        path: 'receiving/list',
+        component: () =>
+          import(/* webpackChunkName: "receiving-list" */ '../views/receiving'),
+        meta: {
+          title: '收货列表'
+        }
+      },
+      {
+        name: 'receiving-edit',
+        path: 'receiving/edit',
+        component: () =>
+          import(
+            /* webpackChunkName: "receiving-edit" */ '../views/receiving/ReceivingEdit'
+          ),
+        meta: {
+          title: '新建收货单'
+        }
+      },
       {
         name: 'setting',
         path: 'setting',

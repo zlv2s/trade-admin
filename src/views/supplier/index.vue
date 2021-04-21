@@ -19,29 +19,6 @@
         <i class="iconfont icon-fanhui1"></i>
       </template>
     </list-view>
-    <!-- <van-list
-      class="supplier-list"
-      v-model="loading"
-      :finished="finished"
-      finished-text="没有更多了"
-      @load="onLoad"
-    >
-      <div
-        class="supplier-item"
-        v-for="item in supplierList"
-        :key="item.id"
-        @click="goEdit(item)"
-      >
-        <div class="info">
-          <p class="title mb-10">{{ item.name }}</p>
-          <p class="address mb-10">{{ item.address }}</p>
-          <p class="contact">
-            <span>联系人：{{ item.contact }}，手机{{ item.phone }}</span>
-          </p>
-        </div>
-        <i class="iconfont icon-fanhui1"></i>
-      </div>
-    </van-list> -->
   </div>
 </template>
 
@@ -92,6 +69,7 @@ export default {
     }
   },
   async created() {
+    // 第一次进入开启 loading
     this.loading = true
     await this.getList(this.page)
   }

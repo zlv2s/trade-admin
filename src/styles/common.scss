@@ -74,6 +74,10 @@ input {
   margin: 0 rem(10);
 }
 
+.fz-12 {
+  font-size: rem(12);
+}
+
 .fz-14 {
   font-size: rem(14);
 }
@@ -88,4 +92,16 @@ input {
 
 .fz-20 {
   font-size: rem(20);
+}
+
+.fw-700 {
+  font-weight: 700;
+}
+
+.fw-n {
+  font-weight: normal;
+}
+
+.w-100 {
+  width: 100%;
 }
