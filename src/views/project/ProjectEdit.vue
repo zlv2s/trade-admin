@@ -1,7 +1,7 @@
 <template>
   <van-form @submit="onSubmit">
     <!-- 项目信息 -->
-    <div class="form-wrapper p-10">
+    <div class="p-10">
       <p class="fz-14 m-y-10">项目基本信息</p>
       <van-field
         v-model="project.name"
@@ -232,6 +232,7 @@ export default {
       }, 500)
     }
   },
+
   created() {
     this.getProjectList()
     const project = this.$store.getters.dataObj

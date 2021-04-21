@@ -6,7 +6,7 @@ import request from '@utils/request'
  * @param {Number} size 每页数量
  * @returns {Promise}
  */
-export function getProjectList({ page, size = 10 }) {
+export function getProjectList({ page = 1, size = 10 } = {}) {
   return request({
     url: '/project/list',
     params: { page, size }

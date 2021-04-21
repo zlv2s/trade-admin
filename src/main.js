@@ -15,7 +15,9 @@ import {
   List,
   Area,
   Calendar,
-  SwipeCell
+  SwipeCell,
+  Cell,
+  CellGroup
 } from 'vant'
 
 import './styles/common.scss'
@@ -32,6 +34,8 @@ Vue.use(Button)
   .use(Area)
   .use(Calendar)
   .use(SwipeCell)
+  .use(Cell)
+  .use(CellGroup)
 
 Vue.config.productionTip = false
 
