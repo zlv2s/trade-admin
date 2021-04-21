@@ -46,20 +46,13 @@ input {
   opacity: .3;
 }
 
+
 .mb-10 {
   margin-bottom: rem(10);
 }
 
-.p-10 {
-  padding: rem(10);
-}
-
-.p-x-10 {
-  padding: 0 rem(10);
-}
-
-.p-y-10 {
-  padding: rem(10) 0;
+.mt-10 {
+  margin-top: rem(10);
 }
 
 .m-10 {
@@ -73,6 +66,28 @@ input {
 .m-x-10 {
   margin: 0 rem(10);
 }
+
+
+.p-10 {
+  padding: rem(10);
+}
+
+.pb-10 {
+  padding-bottom: rem(10);
+}
+
+.pt-10 {
+  padding-top: rem(10);
+}
+
+.p-x-10 {
+  padding: 0 rem(10);
+}
+
+.p-y-10 {
+  padding: rem(10) 0;
+}
+
 
 .fz-12 {
   font-size: rem(12);

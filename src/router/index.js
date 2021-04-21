@@ -136,6 +136,17 @@ const routes = [
         }
       },
       {
+        name: 'purchase-info',
+        path: 'purchase/info/:purchaseId',
+        component: () =>
+          import(
+            /* webpackChunkName: "purchase-info" */ '../views/purchase/PurchaseInfo'
+          ),
+        meta: {
+          title: '采购单详情'
+        }
+      },
+      {
         name: 'receiving-list',
         path: 'receiving/list',
         component: () =>

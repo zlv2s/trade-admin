@@ -45,7 +45,12 @@
           </div>
           <template #right>
             <van-button square type="danger" text="付款" @click="doPayment" />
-            <van-button square type="primary" text="详情" @click="goDetail" />
+            <van-button
+              square
+              type="primary"
+              text="详情"
+              @click="$router.push({ path: `/purchase/info/${item.id}` })"
+            />
           </template>
         </van-swipe-cell>
       </template>
@@ -77,9 +82,10 @@ export default {
       }
       this.page++
     },
-    goDetail() {},
 
-    doPayment() {},
+    doPayment() {
+      console.log('make payment')
+    },
 
     onSetLoading(v) {
       this.loading = v
@@ -110,7 +116,4 @@ export default {
     height: 100%;
   }
 }
-// .purchase-item {
-//   background: #fff;
-// }
 </style>

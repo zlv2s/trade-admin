@@ -225,6 +225,9 @@ export default {
         await savePurchase({ ...this.purchase })
       }
       this.$toast(`${this.status ? '添加' : '更新'}成功`)
+      setTimeout(() => {
+        this.$router.replace({ path: '/purchase/list' })
+      }, 500)
     },
 
     showPopup(type) {
