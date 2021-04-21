@@ -128,6 +128,34 @@
       />
     </div>
 
+    <!-- 审批信息 -->
+    <div class="p-10">
+      <p class="fz-14 m-y-10">审批信息</p>
+      <van-field
+        v-model="purchase.approver"
+        name="审批人"
+        label="审批人"
+        placeholder="请选择审批人"
+        :rules="[{ required: true, message: '请选择审批人' }]"
+      >
+        <template #button>
+          <van-button
+            size="small"
+            type="primary"
+            @click.prevent="showPopup('approver')"
+            >选择审批人</van-button
+          >
+        </template>
+      </van-field>
+
+      <van-field
+        v-model="purchase.remark"
+        name="备注"
+        label="备注"
+        placeholder="备注"
+      />
+    </div>
+
     <van-popup v-model="popup.isShowPopup" position="bottom">
       <DatePicker
         v-if="popup.type === 'date'"
@@ -165,6 +193,7 @@ export default {
       purchase: {
         nextId: 'nextId-1',
         createId: 'createId-1',
+        approver: '千峰宝强哥',
         createName: '',
         createTime: '',
         projectId: '',
