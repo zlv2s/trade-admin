@@ -18,10 +18,10 @@ const routes = [
         meta: { title: '管理系统' }
       },
       {
-        name: 'material',
-        path: 'material',
+        name: 'material-list',
+        path: 'material/list',
         component: () =>
-          import(/* webpackChunkName: "material" */ '../views/material'),
+          import(/* webpackChunkName: "material-list" */ '../views/material'),
         meta: { title: '材料管理' }
       },
       {
@@ -38,13 +38,13 @@ const routes = [
         path: 'material/update-material',
         component: () =>
           import(
-            /* webpackChunkName: "new-material" */ '../views/material/MaterialForm'
+            /* webpackChunkName: "update-material" */ '../views/material/MaterialForm'
           ),
         meta: { title: '更新材料' }
       },
       {
-        name: 'supplier',
-        path: '/supplier/list',
+        name: 'supplier-list',
+        path: 'supplier/list',
         component: () =>
           import(/* webpackChunkName: "supplier-list" */ '../views/supplier'),
         meta: {
@@ -53,26 +53,90 @@ const routes = [
       },
       {
         name: 'supplier-edit',
-        path: '/supplier/edit',
+        path: 'supplier/edit',
         component: () =>
           import(
             /* webpackChunkName: "supplier-edit" */ '../views/supplier/SupplierEdit'
           ),
         meta: {
-          title: '供应商编辑'
+          title: '更新供应商'
         }
       },
       {
         name: 'supplier-new',
-        path: '/supplier/new',
+        path: 'supplier/new',
         component: () =>
           import(
-            /* webpackChunkName: "supplier-edit" */ '../views/supplier/SupplierEdit'
+            /* webpackChunkName: "supplier-new" */ '../views/supplier/SupplierEdit'
           ),
         meta: {
           title: '新增供应商'
         }
       },
+      {
+        name: 'project-list',
+        path: 'project/list',
+        component: () =>
+          import(/* webpackChunkName: "project-list" */ '../views/project'),
+        meta: {
+          title: '项目管理'
+        }
+      },
+      {
+        name: 'project-edit',
+        path: 'project/edit',
+        component: () =>
+          import(
+            /* webpackChunkName: "project-edit" */ '../views/project/ProjectEdit'
+          ),
+        meta: {
+          title: '更新项目'
+        }
+      },
+      {
+        name: 'project-new',
+        path: 'project/new',
+        component: () =>
+          import(
+            /* webpackChunkName: "project-new" */ '../views/project/ProjectEdit'
+          ),
+        meta: {
+          title: '新增项目'
+        }
+      },
+
+      {
+        name: 'purchase-list',
+        path: 'purchase/list',
+        component: () =>
+          import(/* webpackChunkName: "purchase-list" */ '../views/purchase'),
+        meta: {
+          title: '采购列表'
+        }
+      },
+      {
+        name: 'purchase-edit',
+        path: 'purchase/edit',
+        component: () =>
+          import(
+            /* webpackChunkName: "purchase-edit" */ '../views/purchase/PurchaseEdit'
+          ),
+        meta: {
+          title: '采购更新'
+        }
+      },
+      {
+        name: 'purchase-new',
+        path: 'purchase/new',
+        component: () =>
+          import(
+            /* webpackChunkName: "purchase-new" */ '../views/purchase/PurchaseEdit'
+          ),
+        meta: {
+          title: '新增采购'
+        }
+      },
+
       {
         name: 'setting',
         path: 'setting',

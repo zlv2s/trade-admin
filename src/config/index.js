@@ -12,7 +12,7 @@ export default {
         {
           title: '材料管理',
           icon: 'icon-cailiao',
-          path: '/material'
+          path: '/material/list'
         },
         {
           title: '新建材料',
@@ -52,12 +52,12 @@ export default {
         {
           title: '采购列表',
           icon: 'icon-caigou',
-          path: '/purchase-list'
+          path: '/purchase/list'
         },
         {
           title: '新建采购单',
           icon: 'icon-xinjian1',
-          path: '/new-purchase'
+          path: '/purchase/new'
         }
       ]
     },
@@ -67,12 +67,12 @@ export default {
         {
           title: '收货列表',
           icon: 'icon-shouhuodanwei',
-          path: ''
+          path: '/receiving/list'
         },
         {
           title: '新建收货单',
           icon: 'icon-shouhuodan',
-          path: ''
+          path: '/receiving/new'
         }
       ]
     },

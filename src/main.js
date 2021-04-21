@@ -13,7 +13,9 @@ import {
   Picker,
   Circle,
   List,
-  Area
+  Area,
+  Calendar,
+  SwipeCell
 } from 'vant'
 
 import './styles/common.scss'
@@ -28,6 +30,8 @@ Vue.use(Button)
   .use(Circle)
   .use(List)
   .use(Area)
+  .use(Calendar)
+  .use(SwipeCell)
 
 Vue.config.productionTip = false
 
