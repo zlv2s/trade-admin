@@ -23,7 +23,7 @@
     </van-swipe-cell>
   </div> -->
   <div class="list">
-    <Search />
+    <Search @search="onSearch" />
     <list-view
       style="background: #fff"
       :dataList="purchaseList"
@@ -98,7 +98,9 @@ export default {
     onLoad() {
       console.log('receive loading')
       this.getList(this.page)
-    }
+    },
+
+    onSearch(txt) {}
   },
   created() {
     this.loading = true

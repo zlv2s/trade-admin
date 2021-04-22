@@ -47,3 +47,17 @@ export function updateUser(data) {
     data
   })
 }
+
+/**
+ * 获取用户列表信息
+ * @param {String} page 当前页数
+ * @param {String} size 每页数量
+ * @param {String} name 根据姓名搜索
+ * @returns
+ */
+export function getUserList({ page = 1, size = 10, name = '' } = {}) {
+  return request({
+    url: '/user/list',
+    params: { page, size, name }
+  })
+}

@@ -9,7 +9,7 @@
           ><span class="fz-14">全部</span></van-col
         >
         <van-col span="4" class="tac sel-icon"
-          ><i class="iconfont icon-sw_sousuo"></i
+          ><i class="iconfont icon-sw_sousuo" @click="handleClick"></i
         ></van-col>
       </van-row>
     </div>
@@ -21,6 +21,11 @@ export default {
   data() {
     return {
       searchTxt: ''
+    }
+  },
+  methods: {
+    handleClick() {
+      this.$emit('search', this.searchTxt)
     }
   }
 }
@@ -52,8 +57,6 @@ export default {
       &::after {
         right: 0;
       }
-    }
-    .sel-icon {
     }
   }
 }

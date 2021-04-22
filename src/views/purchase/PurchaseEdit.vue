@@ -4,7 +4,8 @@
     <div class="p-10">
       <p class="fz-14 m-y-10">项目基本信息</p>
       <van-field
-        v-model="purchase.createName"
+        :value="userName"
+        disabled
         name="创建人"
         label="创建人"
         placeholder="创建人"
@@ -162,6 +163,7 @@
         @close="onHide"
         @selected="onSelected"
       />
+      <UserList v-else-if="popup.type === 'approver'" @selected="onSelected" />
       <DataPicker
         :type="popup.type"
         :dataList="dataList"
@@ -181,9 +183,11 @@
 <script>
 import DatePicker from '@com/DatePicker'
 import DataPicker from '@com/DataPicker'
+import UserList from '@com/UserList'
 import { getProjectList } from '@api/project'
 import { getMaterialList } from '@api/material'
 import { getSupplierList } from '@api/supplier'
+
 import { savePurchase, updatePurchase } from '@api/purchase'
 
 export default {
@@ -193,7 +197,7 @@ export default {
       purchase: {
         nextId: 'nextId-1',
         createId: 'createId-1',
-        approver: '千峰宝强哥',
+        approver: '',
         createName: '',
         createTime: '',
         projectId: '',
@@ -214,6 +218,11 @@ export default {
         isShowPopup: false
       },
       dataList: []
+    }
+  },
+  computed: {
+    userName() {
+      return this.$store.getters['user/user'].name
     }
   },
   methods: {
@@ -246,8 +255,12 @@ export default {
       if (typeof v === 'string') {
         this.purchase.createTime = v
       } else {
-        this.purchase[`${v.type}Name`] = v.value.name
-        this.purchase[`${v.type}Id`] = v.value.id
+        if (v.type === 'approver') {
+          this.purchase[v.type] = v.value.name
+        } else {
+          this.purchase[`${v.type}Name`] = v.value.name
+          this.purchase[`${v.type}Id`] = v.value.id
+        }
       }
 
       this.popup.isShowPopup = false
@@ -274,7 +287,8 @@ export default {
   },
   components: {
     DatePicker,
-    DataPicker
+    DataPicker,
+    UserList
   }
 }
 </script>

@@ -19,7 +19,8 @@ import {
   Cell,
   CellGroup,
   Row,
-  Col
+  Col,
+  Search
 } from 'vant'
 
 import './styles/common.scss'
@@ -40,6 +41,7 @@ Vue.use(Button)
   .use(CellGroup)
   .use(Row)
   .use(Col)
+  .use(Search)
 
 Vue.config.productionTip = false
 
