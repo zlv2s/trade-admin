@@ -3,7 +3,7 @@
     <div class="search-wrapper">
       <van-row type="flex" align="center" justify="center">
         <van-col span="16">
-          <van-field v-model="searchTxt" placeholder="请输入项目名" />
+          <van-field v-model="searchTxt" placeholder="请输入项目名" clearable />
         </van-col>
         <van-col span="4" class="tac sel-options"
           ><span class="fz-14">全部</span></van-col
@@ -25,7 +25,16 @@ export default {
   },
   methods: {
     handleClick() {
-      this.$emit('search', this.searchTxt)
+      if (this.searchTxt) {
+        this.$emit('search', this.searchTxt)
+      }
+    }
+  },
+  watch: {
+    searchTxt(newValue, oldValue) {
+      if (!newValue) {
+        this.$emit('clear')
+      }
     }
   }
 }

@@ -136,14 +136,14 @@ const routes = [
         }
       },
       {
-        name: 'purchase-info',
-        path: 'purchase/info/:purchaseId',
+        name: 'receiving-info',
+        path: 'receiving/info/:receivingId',
         component: () =>
           import(
-            /* webpackChunkName: "purchase-info" */ '../views/purchase/PurchaseInfo'
+            /* webpackChunkName: "receiving-info" */ '../views/receiving/ReceivingInfo'
           ),
         meta: {
-          title: '采购单详情'
+          title: '收货单详情'
         }
       },
       {
@@ -164,6 +164,17 @@ const routes = [
           ),
         meta: {
           title: '新建收货单'
+        }
+      },
+      {
+        name: 'purchase-info',
+        path: 'purchase/info/:purchaseId',
+        component: () =>
+          import(
+            /* webpackChunkName: "purchase-info" */ '../views/purchase/PurchaseInfo'
+          ),
+        meta: {
+          title: '采购单详情'
         }
       },
       {

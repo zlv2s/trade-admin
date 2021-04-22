@@ -1,29 +1,6 @@
 <template>
-  <!-- <div class="purchase p-y-10">
-    <van-swipe-cell
-      v-for="purchase in purchaseList"
-      :key="purchase.id"
-      class="mb-10"
-    >
-      <div class="purchase-item p-10">
-        <p class="title fz-16 fw-700 mb-10">
-          {{ purchase.projectName }} --
-          <span class="fz-12 fw-n">{{ purchase.materialName }}</span>
-        </p>
-        <p class="info fz-12">
-          供应商：{{ purchase.supplierName }}，数量：{{
-            purchase.materialWeight + purchase.materialUnit
-          }}
-        </p>
-      </div>
-      <template #right>
-        <van-button square type="danger" text="付款" @click="doPayment" />
-        <van-button square type="primary" text="详情" @click="goDetail" />
-      </template>
-    </van-swipe-cell>
-  </div> -->
   <div class="list">
-    <Search @search="onSearch" />
+    <Search @search="onSearch" @clear="onClear" />
     <list-view
       style="background: #fff"
       :dataList="purchaseList"
@@ -63,12 +40,13 @@
 <script>
 import { getPurchaseList } from '@api/purchase'
 import ListView from '@com/ListView'
-import Search from './componenets/Search'
+import Search from '@com/Search'
 
 export default {
   data() {
     return {
       purchaseList: [],
+      resList: [],
       loading: false,
       finished: false,
       page: 1,
@@ -80,6 +58,7 @@ export default {
       const res = await getPurchaseList({ page })
       console.log(res)
       this.purchaseList = [...this.purchaseList, ...res.rows]
+      this.resList = this.purchaseList
       this.loading = false
       if (this.page * this.size >= res.total) {
         this.finished = true
@@ -100,8 +79,18 @@ export default {
       this.getList(this.page)
     },
 
-    onSearch(txt) {}
+    async onSearch(txt) {
+      console.log(txt)
+      this.purchaseList = (
+        await getPurchaseList({ projectName: txt, size: 9999 })
+      ).rows
+      this.finished = true
+    },
+    onClear() {
+      this.purchaseList = this.resList
+    }
   },
+
   created() {
     this.loading = true
     this.getList(this.page)

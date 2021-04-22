@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import filters from './filters'
 import {
   Button,
   Swipe,
@@ -20,7 +21,9 @@ import {
   CellGroup,
   Row,
   Col,
-  Search
+  Search,
+  Step,
+  Steps
 } from 'vant'
 
 import './styles/common.scss'
@@ -42,7 +45,10 @@ Vue.use(Button)
   .use(Row)
   .use(Col)
   .use(Search)
+  .use(Step)
+  .use(Steps)
 
+Vue.use(filters)
 Vue.config.productionTip = false
 
 new Vue({

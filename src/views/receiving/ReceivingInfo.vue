@@ -1,5 +1,5 @@
 <template>
-  <div class="purchase-info fz-16" v-if="Object.keys(purchase).length">
+  <div class="purchase-info fz-16" v-if="Object.keys(receiving).length">
     <div class="info-box" v-for="item in info" :key="item.title">
       <info-item :title="item.title">
         <p
@@ -15,8 +15,10 @@
       <info-item :title="timeLine.title">
         <van-steps direction="vertical" :active="timeLine.content.length">
           <van-step v-for="item in timeLine.content" :key="item.time">
-            <h3>{{ item.remark }}</h3>
-            <p>{{ item.time | formatTime }} {{ item.userName }}</p>
+            <h3 class="fz-14">{{ item.remark || '无记录' }}</h3>
+            <p class="fz-12">
+              {{ item.time | formatTime }} {{ item.userName }}
+            </p>
           </van-step>
         </van-steps>
       </info-item>
@@ -25,37 +27,38 @@
 </template>
 
 <script>
-import { getPurchaseDetail } from '@api/purchase'
+import { getReceivingDetail } from '@api/receiving'
 import InfoItem from '@com/InfoItem'
 
 export default {
   data() {
     return {
-      purchase: {}
+      receiving: {}
     }
   },
   computed: {
-    purchaseId() {
-      return this.$route.params.purchaseId
+    receivingId() {
+      return this.$route.params.receivingId
     },
     info() {
-      return { basic: this.purchase.basic, supplier: this.purchase.supplier }
+      return { basic: this.receiving.basic, supplier: this.receiving.supplier }
     },
     timeLine() {
-      return this.purchase.timeLine
+      return this.receiving.timeLine
     }
   },
   methods: {
     async getDetail() {
-      const data = await getPurchaseDetail(this.purchaseId)
+      const data = await getReceivingDetail(this.receivingId)
       const basicMap = {
         projectName: '项目名称',
         state: '项目状态',
         materialName: '材料名称',
         materialWeight: '重量',
         materialUnit: '单位',
-        price: '单价',
-        createName: '建单人',
+        price: '应付',
+        salePrice: '单价',
+        userName: '建单人',
         createTime: '建单时间'
       }
       const supplierMap = {
@@ -64,26 +67,32 @@ export default {
         supplierPhone: '联系电话'
       }
 
-      this.purchase = Object.entries(data).reduce(
+      const basic = Object.entries(basicMap).reduce(
         (res, [k, v]) => {
-          if (k in basicMap) {
-            res.basic.content[basicMap[k]] = v
-          }
-          if (k in supplierMap) {
-            res.supplier.content[supplierMap[k]] = v
-          }
-
-          if (k === 'remark') {
-            res.timeLine.content = v
+          if (k in data) {
+            res.content[v] = data[k]
           }
           return res
         },
-        {
-          basic: { title: '采购基本信息', content: {} },
-          supplier: { title: '供应商信息', content: {} },
-          timeLine: { title: '环节信息', content: [] }
-        }
+        { title: '收货基本信息', content: {} }
       )
+
+      const supplier = Object.entries(supplierMap).reduce(
+        (res, [k, v]) => {
+          if (k in data) {
+            res.content[v] = data[k]
+          }
+          return res
+        },
+        { title: '供应商信息', content: {} }
+      )
+
+      const timeLine = { title: '环节信息', content: data.remark }
+
+      console.log(this.receiving)
+      this.$set(this.receiving, 'basic', basic)
+      this.$set(this.receiving, 'supplier', supplier)
+      this.$set(this.receiving, 'timeLine', timeLine)
     }
   },
   created() {
