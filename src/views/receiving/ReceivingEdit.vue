@@ -127,8 +127,7 @@
 
       <DataPicker
         :type="popup.type"
-        :dataList="dataList"
-        valueKey="name"
+        :valueKey="popup.type === 'purchase' ? 'id' : 'name'"
         v-else
         @hide="onHide"
         @selected="onSelected"
@@ -145,11 +144,14 @@
 import DatePicker from '@com/DatePicker'
 import DataPicker from '@com/DataPicker'
 
-import { getSupplierList } from '@api/supplier'
-import { getPurchaseList } from '@api/purchase'
+// import { getSupplierList } from '@api/supplier'
+// import { getPurchaseList } from '@api/purchase'
 import { saveReceiving, updateReceiving } from '@api/receiving'
 
+import popup from '@/mixin/popup'
+
 export default {
+  mixins: [popup],
   data() {
     return {
       status: 1,
@@ -171,10 +173,7 @@ export default {
         price: '',
         remark: ''
       },
-      popup: {
-        type: '',
-        isShowPopup: false
-      },
+
       dataList: []
     }
   },
@@ -197,17 +196,6 @@ export default {
       }, 500)
     },
 
-    showPopup(type) {
-      this.popup.type = type
-      this.getDataList(type)
-      this.popup.isShowPopup = true
-    },
-
-    onHide() {
-      this.popup.isShowPopup = false
-      this.dataList = []
-    },
-
     onSelected(v) {
       console.log(v)
       if (typeof v === 'string') {
@@ -218,20 +206,20 @@ export default {
       }
       this.dataList = []
       this.popup.isShowPopup = false
-    },
-
-    async getDataList(type) {
-      switch (type) {
-        case 'purchase':
-          this.dataList = (await getPurchaseList()).rows
-          break
-        case 'supplier':
-          this.dataList = (await getSupplierList()).rows
-          break
-        default:
-          break
-      }
     }
+
+    // async getDataList(type) {
+    //   switch (type) {
+    //     case 'purchase':
+    //       this.dataList = (await getPurchaseList()).rows
+    //       break
+    //     case 'supplier':
+    //       this.dataList = (await getSupplierList()).rows
+    //       break
+    //     default:
+    //       break
+    //   }
+    // }
   },
   components: {
     DatePicker,

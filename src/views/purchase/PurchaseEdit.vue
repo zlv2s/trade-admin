@@ -166,7 +166,6 @@
       <UserList v-else-if="popup.type === 'approver'" @selected="onSelected" />
       <DataPicker
         :type="popup.type"
-        :dataList="dataList"
         valueKey="name"
         v-else
         @hide="onHide"
@@ -184,13 +183,16 @@
 import DatePicker from '@com/DatePicker'
 import DataPicker from '@com/DataPicker'
 import UserList from '@com/UserList'
-import { getProjectList } from '@api/project'
-import { getMaterialList } from '@api/material'
-import { getSupplierList } from '@api/supplier'
 
+// import { getProjectList } from '@api/project'
+// import { getMaterialList } from '@api/material'
+// import { getSupplierList } from '@api/supplier'
 import { savePurchase, updatePurchase } from '@api/purchase'
 
+import popup from '@/mixin/popup'
+
 export default {
+  mixins: [popup],
   data() {
     return {
       status: 1,
@@ -213,10 +215,10 @@ export default {
         supplierPhone: '',
         remark: ''
       },
-      popup: {
-        type: '',
-        isShowPopup: false
-      },
+      // popup: {
+      //   type: '',
+      //   isShowPopup: false
+      // },
       dataList: []
     }
   },
@@ -239,15 +241,15 @@ export default {
       }, 500)
     },
 
-    showPopup(type) {
-      this.popup.type = type
-      this.getDataList(type)
-      this.popup.isShowPopup = true
-    },
+    // showPopup(type) {
+    //   this.popup.type = type
+    //   this.getDataList(type)
+    //   this.popup.isShowPopup = true
+    // },
 
-    onHide() {
-      this.popup.isShowPopup = false
-    },
+    // onHide() {
+    //   this.popup.isShowPopup = false
+    // },
 
     onSelected(v) {
       console.log(v)
@@ -267,23 +269,23 @@ export default {
       // this.projectName = ''
       // this.materialName = ''
       // this.supplierName = ''
-    },
-
-    async getDataList(type) {
-      switch (type) {
-        case 'project':
-          this.dataList = (await getProjectList()).rows
-          break
-        case 'material':
-          this.dataList = (await getMaterialList()).rows
-          break
-        case 'supplier':
-          this.dataList = (await getSupplierList()).rows
-          break
-        default:
-          break
-      }
     }
+
+    // async getDataList(type) {
+    //   switch (type) {
+    //     case 'project':
+    //       this.dataList = (await getProjectList()).rows
+    //       break
+    //     case 'material':
+    //       this.dataList = (await getMaterialList()).rows
+    //       break
+    //     case 'supplier':
+    //       this.dataList = (await getSupplierList()).rows
+    //       break
+    //     default:
+    //       break
+    //   }
+    // }
   },
   components: {
     DatePicker,

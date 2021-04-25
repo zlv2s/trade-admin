@@ -20,7 +20,7 @@
           <van-button
             size="small"
             type="primary"
-            @click.prevent="showCitySelModal"
+            @click.prevent="showPopup('county')"
             >选择城市</van-button
           >
         </template>
@@ -63,23 +63,21 @@
         <van-button block color="#416fff" native-type="submit">提交</van-button>
       </div>
     </van-form>
-    <van-popup v-model="isShowCitySelModal" position="bottom">
-      <van-picker
-        title="选择城市"
-        show-toolbar
-        value-key="label"
-        :columns="columns"
-        @confirm="onConfirm"
-        @cancel="onCancel"
-      />
+
+    <van-popup v-model="popup.isShowPopup" position="bottom">
+      <CountyPicker @hide="onHide" @selected="onSelected" />
     </van-popup>
   </div>
 </template>
 
 <script>
-import { getCityList, updateSupplier, saveSupplier } from '@api/supplier'
+import { updateSupplier, saveSupplier } from '@api/supplier'
+import CountyPicker from '@com/CountyPicker'
+import popup from '@/mixin/popup'
+
 export default {
   name: 'supplier-edit',
+  mixins: [popup],
   data() {
     return {
       status: 0, // 0 编辑。1 新建
@@ -93,21 +91,11 @@ export default {
         conatct: '',
         phone: '',
         remark: ''
-      },
-      isShowCitySelModal: false,
-      cityList: []
+      }
     }
   },
-  computed: {
-    columns() {
-      return this.cityList.slice(0, -3)
-    }
-  },
-  methods: {
-    showCitySelModal() {
-      this.isShowCitySelModal = true
-    },
 
+  methods: {
     async onSubmit() {
       if (this.status === 1) {
         await saveSupplier({
@@ -124,24 +112,17 @@ export default {
       }, 500)
     },
 
-    onConfirm(v) {
+    onSelected(v) {
       this.supplier.address = v.join(',')
       this.supplier.province = v[0]
       this.supplier.city = v[1]
       this.supplier.county = v[2]
       this.isShowCitySelModal = false
-    },
-
-    onCancel() {
-      this.isShowCitySelModal = false
+      this.popup.isShowPopup = false
     }
   },
 
   created() {
-    getCityList().then(res => {
-      console.log(res)
-      this.cityList = res
-    })
     const data = this.$store.getters.dataObj
     if (data) {
       this.status = 0
@@ -150,6 +131,9 @@ export default {
     } else {
       this.status = 1
     }
+  },
+  components: {
+    CountyPicker
   }
 }
 </script>

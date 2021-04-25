@@ -139,8 +139,9 @@
         @selected="onSelected"
       />
       <DataPicker
-        :dataList="liableList"
         v-if="popup.type === 'liable'"
+        :type="popup.type"
+        :passedList="liableList"
         @hide="onHide"
         @selected="onSelected"
       />
@@ -153,7 +154,10 @@ import CountyPicker from '@com/CountyPicker'
 import DatePicker from '@com/DatePicker'
 import DataPicker from '@com/DataPicker'
 import { getProjectList, saveProject, updateProject } from '@api/project'
+import popup from '@/mixin/popup'
+
 export default {
+  mixins: [popup],
   data() {
     return {
       projectList: [],
@@ -173,10 +177,7 @@ export default {
         signTime: '',
         state: ''
       },
-      popup: {
-        type: '',
-        isShowPopup: false
-      },
+
       status: 0
     }
   },
@@ -188,14 +189,6 @@ export default {
   methods: {
     async getProjectList() {
       this.projectList = (await getProjectList({ page: 1 })).rows
-    },
-    showPopup(type) {
-      this.popup.type = type
-      this.popup.isShowPopup = true
-    },
-
-    onHide() {
-      this.popup.isShowPopup = false
     },
 
     onSelected(v) {
@@ -212,7 +205,7 @@ export default {
           this.project.county = v[2]
           break
         case 'liable':
-          this.project.liableName = v
+          this.project.liableName = v.value
           break
         default:
           break
