@@ -52,7 +52,7 @@
       <p class="fz-14 m-y-10">材料信息</p>
       <van-field
         v-model="purchase.materialName"
-        name="供应商"
+        name="材料名称"
         label="材料名称"
         placeholder="材料"
         :rules="[{ required: true, message: '请选择材料' }]"
@@ -198,7 +198,7 @@ export default {
         nextId: 'nextId-1',
         createId: 'createId-1',
         approver: '',
-        createName: '',
+        // createName: '',
         createTime: '',
         projectId: '',
         projectName: '',
@@ -231,7 +231,7 @@ export default {
         console.log('更新采购单')
         await updatePurchase()
       } else {
-        await savePurchase({ ...this.purchase })
+        await savePurchase({ createName: this.userName, ...this.purchase })
       }
       this.$toast(`${this.status ? '添加' : '更新'}成功`)
       setTimeout(() => {

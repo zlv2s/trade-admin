@@ -163,6 +163,17 @@ const routes = [
             /* webpackChunkName: "receiving-edit" */ '../views/receiving/ReceivingEdit'
           ),
         meta: {
+          title: '更新收货单'
+        }
+      },
+      {
+        name: 'receiving-new',
+        path: 'receiving/new',
+        component: () =>
+          import(
+            /* webpackChunkName: "receiving-new" */ '../views/receiving/ReceivingEdit'
+          ),
+        meta: {
           title: '新建收货单'
         }
       },

@@ -36,3 +36,29 @@ export function getReceivingDetail(id) {
     params: { id }
   })
 }
+
+/**
+ * 新建收货单
+ * @param {Object} data 收货单数据对象
+ * @returns {Promise}
+ */
+export function saveReceiving(data) {
+  return request({
+    url: '/receiving/save',
+    method: 'POST',
+    data
+  })
+}
+
+/**
+ * 更新收货单
+ * @param {Object} data 收货单数据对象
+ * @returns {Promise}
+ */
+export function updateReceiving(data) {
+  return request({
+    url: '/receiving/update',
+    method: 'POST',
+    data
+  })
+}
